@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Festival.DAL.Enums;
 
-namespace Festival.DAL.Entites
+namespace Festival.DAL.Entities
 {
     public record BandEntity : BaseEntity
     {

@@ -2,7 +2,7 @@ using System;
 
 using Festival.DAL.Interfaces;
 
-namespace Festival.DAL.Entites
+namespace Festival.DAL.Entities
 {
     public abstract record BaseEntity : IEntity
     {

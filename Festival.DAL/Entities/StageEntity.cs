@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace Festival.DAL.Entites
+namespace Festival.DAL.Entities
 {
     public record StageEntity : BaseEntity
     {

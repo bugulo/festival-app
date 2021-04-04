@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Festival.DAL.Entites
+namespace Festival.DAL.Entities
 {
     public record SlotEntity : BaseEntity
     {
