@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-using Festival.DAL.Entites;
+using Festival.DAL.Entities;
 
 namespace Festival.DAL
 {

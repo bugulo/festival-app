@@ -8,7 +8,7 @@ using Xunit.Abstractions;
 using Xunit.Priority;
 
 using Festival.DAL.Enums;
-using Festival.DAL.Entites;
+using Festival.DAL.Entities;
 
 namespace Festival.DAL.Tests
 {
