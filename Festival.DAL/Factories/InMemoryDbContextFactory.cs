@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
+using Festival.DAL.Interfaces;
+
 namespace Festival.DAL.Factories
 {
     public class InMemoryDbContextFactory : IDbContextFactory

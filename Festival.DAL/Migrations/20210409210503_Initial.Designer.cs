@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Festival.DAL.Migrations
 {
     [DbContext(typeof(FestivalDbContext))]
-    [Migration("20210403141116_Initial")]
+    [Migration("20210409210503_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace Festival.DAL.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Festival.DAL.Entites.BandEntity", b =>
+            modelBuilder.Entity("Festival.DAL.Entities.BandEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace Festival.DAL.Migrations
                     b.ToTable("Bands");
                 });
 
-            modelBuilder.Entity("Festival.DAL.Entites.SlotEntity", b =>
+            modelBuilder.Entity("Festival.DAL.Entities.SlotEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace Festival.DAL.Migrations
                     b.ToTable("Slots");
                 });
 
-            modelBuilder.Entity("Festival.DAL.Entites.StageEntity", b =>
+            modelBuilder.Entity("Festival.DAL.Entities.StageEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,15 +97,15 @@ namespace Festival.DAL.Migrations
                     b.ToTable("Stages");
                 });
 
-            modelBuilder.Entity("Festival.DAL.Entites.SlotEntity", b =>
+            modelBuilder.Entity("Festival.DAL.Entities.SlotEntity", b =>
                 {
-                    b.HasOne("Festival.DAL.Entites.BandEntity", "Band")
+                    b.HasOne("Festival.DAL.Entities.BandEntity", "Band")
                         .WithMany("Slots")
                         .HasForeignKey("BandId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Festival.DAL.Entites.StageEntity", "Stage")
+                    b.HasOne("Festival.DAL.Entities.StageEntity", "Stage")
                         .WithMany("Slots")
                         .HasForeignKey("StageId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -116,12 +116,12 @@ namespace Festival.DAL.Migrations
                     b.Navigation("Stage");
                 });
 
-            modelBuilder.Entity("Festival.DAL.Entites.BandEntity", b =>
+            modelBuilder.Entity("Festival.DAL.Entities.BandEntity", b =>
                 {
                     b.Navigation("Slots");
                 });
 
-            modelBuilder.Entity("Festival.DAL.Entites.StageEntity", b =>
+            modelBuilder.Entity("Festival.DAL.Entities.StageEntity", b =>
                 {
                     b.Navigation("Slots");
                 });

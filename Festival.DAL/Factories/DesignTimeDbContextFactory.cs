@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 
+using Festival.DAL.Interfaces;
+
 namespace Festival.DAL.Factories
 {
     public class DesignTimeDbContextFactory : IDbContextFactory, IDesignTimeDbContextFactory<FestivalDbContext>

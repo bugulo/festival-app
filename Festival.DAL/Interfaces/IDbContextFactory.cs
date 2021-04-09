@@ -1,4 +1,4 @@
-namespace Festival.DAL.Factories
+namespace Festival.DAL.Interfaces
 {
     public interface IDbContextFactory
     {
