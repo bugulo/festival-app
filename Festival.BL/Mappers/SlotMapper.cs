@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Festival.DAL.Enums;
-using Festival.BL.Factories;
-using Festival.BL.Interfaces;
+﻿using Festival.BL.Factories;
 using Festival.BL.Models;
 using Festival.DAL.Entities;
 using Festival.DAL.Interfaces;
 
 namespace Festival.BL.Mappers
 {
-    internal static class SlotMapper
+    public static class SlotMapper
     {
         public static SlotDetailModel MapToDetailModel(SlotEntity entity) =>
             entity == null ? null : new SlotDetailModel

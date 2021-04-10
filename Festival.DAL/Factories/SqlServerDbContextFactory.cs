@@ -17,7 +17,7 @@ namespace Festival.DAL.Factories
         {
             var contextOptionsBuilder = new DbContextOptionsBuilder<FestivalDbContext>();
             contextOptionsBuilder.UseSqlServer(_connectionString);
-            return new FestivalDbContext(contextOptionsBuilder.Options);
+            return new FestivalDbContext(contextOptionsBuilder.Options); 
         }
     }
-}
+}   

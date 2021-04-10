@@ -12,7 +12,7 @@ using Festival.DAL.Interfaces;
 
 namespace Festival.BL.Mappers
 {
-    internal static class StageMapper
+    public static class StageMapper
     {
         public static StageDetailModel MapToDetailModel(StageEntity entity) =>
             entity == null ? null : new StageDetailModel

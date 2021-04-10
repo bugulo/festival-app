@@ -41,7 +41,8 @@ namespace Festival.DAL.Seeds
             PhotoURL = "https://www.test.com/stage2.jpg"
         };
 
-        public static readonly SlotEntity SlotEntity1 = new SlotEntity {
+        public static readonly SlotEntity SlotEntity1 = new SlotEntity
+        {
             Id = Guid.NewGuid(),
             StartAt = new DateTime(2021, 7, 6, 15, 10, 0),
             FinishAt = new DateTime(2021, 7, 6, 16, 10, 0),
