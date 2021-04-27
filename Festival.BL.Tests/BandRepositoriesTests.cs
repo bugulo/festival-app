@@ -75,19 +75,19 @@ namespace Festival.BL.Tests
             //Arrange
             using var dbxAssert = _dbContextFactory.Create();
 
-            var slotEntity = dbxAssert.Bands.Single(i => i.Id == TestSeed.BandEntity1.Id);
+            var bandEntity = dbxAssert.Bands.Single(i => i.Id == TestSeed.BandEntity1.Id);
 
-            var slot = BandMapper.MapToDetailModel(slotEntity);
+            var band = BandMapper.MapToDetailModel(bandEntity);
 
-            slot.Description = "Updated test description";
+            band.Description = "Updated test description";
 
             //Act
-            slot = _bandRepositorySUT.InsertOrUpdate(slot);
+            band = _bandRepositorySUT.InsertOrUpdate(band);
 
             //Assert
             using var ndbxAssert = _dbContextFactory.Create();
-            var slotFromDb = ndbxAssert.Bands.Single(i => i.Id == slot.Id);
-            Assert.Equal(slot, BandMapper.MapToDetailModel(slotFromDb));
+            var slotFromDb = ndbxAssert.Bands.Single(i => i.Id == band.Id);
+            Assert.Equal(band, BandMapper.MapToDetailModel(slotFromDb));
         }
 
         [Fact]
