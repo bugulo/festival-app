@@ -1,0 +1,68 @@
+﻿<local:UserControlBase x:Class="Festival.App.Views.BandDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Festival.App.Views"
+        xmlns:extensions="clr-namespace:Festival.App.Extensions"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:enums="clr-namespace:Festival.DAL.Enums;assembly=Festival.DAL" 
+        mc:Ignorable="d"
+        d:DataContext="{Binding Source={StaticResource DesignTimeViewModelLocator}, Path=BandDetailViewModel}">
+    <Grid Visibility="{Binding Converter={StaticResource NullToVisibilityConverter}}" Width="250">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="Save" Command="{Binding SaveCommand}" />
+            <Button Content="Delete" Command="{Binding DeleteCommand}" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Name" />
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Model.Name, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label Grid.Row="1" Grid.Column="0" Content="Genre" />
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Model.Genre, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label Grid.Row="2" Grid.Column="0" Content="PhotoURL" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Model.PhotoURL, UpdateSourceTrigger=PropertyChanged}" />
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Country" />
+            <ComboBox Grid.Row="3" Grid.Column="1"  MinWidth="150"
+                      ItemsSource="{Binding Source={extensions:EnumBindingSourceExtension {x:Type enums:Country}}}"
+                      SelectedItem="{Binding Model.Country, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <Label Grid.Row="4" Grid.Column="0" Content="Description" />
+            <TextBox Grid.Row="4"
+                     Grid.Column="1"
+                     VerticalAlignment="Top"
+                     Text="{Binding Model.Description, UpdateSourceTrigger=PropertyChanged}"
+                     TextAlignment="Left"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"
+                     Height="30"/>
+
+            <Label Grid.Row="5" Grid.Column="0" Content="" />
+
+            <Label Grid.Row="6" Grid.Column="0" Content="" />
+
+            <Image Grid.Row="8"
+                   Grid.Column="1"
+                   Source="{Binding Model.PhotoURL}"/>
+        </Grid>
+    </Grid>
+</local:UserControlBase>

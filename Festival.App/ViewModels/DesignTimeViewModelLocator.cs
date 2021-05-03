@@ -1,5 +1,4 @@
-﻿using Festival.App.Factories;
-using Festival.App.Services;
+﻿using Festival.App.Services;
 using Festival.App.Services.MessageDialog;
 using Festival.BL.Repositories;
 using Festival.DAL.Factories;
@@ -17,7 +16,7 @@ namespace Festival.App.ViewModels
         public StageDetailViewModel StageDetailViewModel { get; set; }
         public SlotDetailViewModel SlotDetailViewModel { get; set; }
 
-        public DesignTimeViewModelLocator()
+        public DesignTimeViewModelLocator() 
         {
             var bandRepository = new BandRepository(new DesignTimeDbContextFactory());
             var stageRepository = new StageRepository(new DesignTimeDbContextFactory());
@@ -27,11 +26,11 @@ namespace Festival.App.ViewModels
 
             BandListViewModel = new BandListViewModel(bandRepository, mediator);
             StageListViewModel = new StageListViewModel(stageRepository, mediator);
-            SlotListViewModel = new SlotListViewModel(slotRepository, mediator);
+            SlotListViewModel = new SlotListViewModel(slotRepository,StageListViewModel, mediator);
             
             BandDetailViewModel = new BandDetailViewModel(bandRepository, messageDialogService, mediator);
             StageDetailViewModel = new StageDetailViewModel(stageRepository, messageDialogService, mediator);
-            SlotDetailViewModel = new SlotDetailViewModel(slotRepository, messageDialogService, mediator);
+            SlotDetailViewModel = new SlotDetailViewModel(slotRepository, BandListViewModel, StageListViewModel, messageDialogService, mediator);
         }
     }
 }

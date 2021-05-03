@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Festival.BL.Models;
+﻿using Festival.BL.Models;
+using System;
 
 namespace Festival.App.Messages
 {

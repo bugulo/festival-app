@@ -23,7 +23,10 @@ namespace Festival.BL.Mappers
                 Id = entity.Id,
 
                 StartAt = entity.StartAt,
-                FinishAt = entity.FinishAt
+                FinishAt = entity.FinishAt,
+
+                BandName = entity.Band.Name,
+                StageName = entity.Stage.Name
             };
         public static SlotEntity MapToEntity(SlotDetailModel detailModel, IEntityFactory entityFactory)
         {

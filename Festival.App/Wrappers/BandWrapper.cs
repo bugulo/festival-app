@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Collections.ObjectModel;
-using Festival.BL.Models;
-using Festival.DAL.Enums;
+﻿using Festival.BL.Models;
 
+using Festival.DAL.Enums;
 
 namespace Festival.App.Wrappers
 {
@@ -52,6 +46,5 @@ namespace Festival.App.Wrappers
 
         public static implicit operator BandDetailModel(BandWrapper wrapper)
             => wrapper.Model;
-
     }
 }

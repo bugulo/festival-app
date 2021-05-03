@@ -29,7 +29,7 @@ namespace Festival.BL.Repositories
         {
             using var dbContext = _dbContextFactory.Create();
 
-            var entity = dbContext.Bands.Single(t => t.Id == id);
+            var entity = dbContext.Bands.SingleOrDefault(t => t.Id == id);
 
             return BandMapper.MapToDetailModel(entity);
         }

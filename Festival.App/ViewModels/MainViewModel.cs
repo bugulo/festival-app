@@ -5,7 +5,6 @@ using Festival.App.Wrappers;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace Festival.App.ViewModels
 {
@@ -80,9 +79,43 @@ namespace Festival.App.ViewModels
         public ObservableCollection<ISlotDetailViewModel> SlotDetailViewModels { get; } =
             new ObservableCollection<ISlotDetailViewModel>();
 
-        public IBandDetailViewModel SelectedBandDetailViewModel { get; set; }
-        public IStageDetailViewModel SelectedStageDetailViewModel { get; set; }
-        public ISlotDetailViewModel SelectedSlotDetailViewModel { get; set; }
+        private IBandDetailViewModel _selectedBandDetailViewModel;
+        public IBandDetailViewModel SelectedBandDetailViewModel { 
+            get => _selectedBandDetailViewModel; 
+            set {
+                _selectedBandDetailViewModel = value;
+                OnPropertyChanged(nameof(SelectedBandDetailViewModel));
+            }
+        }
+
+        private IStageDetailViewModel _selectedStageDetailViewModel;
+        public IStageDetailViewModel SelectedStageDetailViewModel { 
+            get => _selectedStageDetailViewModel;
+            set {
+                _selectedStageDetailViewModel = value;
+                OnPropertyChanged(nameof(SelectedStageDetailViewModel));
+            } 
+        }
+
+        private ISlotDetailViewModel _selectedSlotDetailViewModel;
+        public ISlotDetailViewModel SelectedSlotDetailViewModel { 
+            get => _selectedSlotDetailViewModel;
+            set {
+                _selectedSlotDetailViewModel = value;
+                OnPropertyChanged(nameof(SelectedSlotDetailViewModel));
+            } 
+        }
+
+        private int _selectedTabIndex;
+        public int SelectedTabIndex {
+            get => _selectedTabIndex;
+            set {
+                _selectedTabIndex = value;
+                SelectedBandDetailViewModel = null;
+                SelectedSlotDetailViewModel = null;
+                SelectedStageDetailViewModel = null;
+            }
+        }
 
         private void OnBandNewMessage(NewMessage<BandWrapper> _)
         {
@@ -116,6 +149,7 @@ namespace Festival.App.ViewModels
             if (band != null)
             {
                 BandDetailViewModels.Remove(band);
+                SelectedBandDetailViewModel = null;
             }
         }
         private void OnStageDeleted(DeletedMessage<StageWrapper> message)
@@ -124,6 +158,7 @@ namespace Festival.App.ViewModels
             if (stage != null)
             {
                 StageDetailViewModels.Remove(stage);
+                SelectedStageDetailViewModel = null;  
             }
         }
         private void OnSlotDeleted(DeletedMessage<SlotWrapper> message)
@@ -132,6 +167,7 @@ namespace Festival.App.ViewModels
             if (slot != null)
             {
                 SlotDetailViewModels.Remove(slot);
+                SelectedSlotDetailViewModel = null;
             }
         }
 

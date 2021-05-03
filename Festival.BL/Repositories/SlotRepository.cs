@@ -7,6 +7,8 @@ using Festival.DAL.Entities;
 using Festival.DAL.Factories;
 using Festival.DAL.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Festival.BL.Repositories
 {
     public class SlotRepository : IRepository<SlotListModel,SlotDetailModel>
@@ -19,11 +21,11 @@ namespace Festival.BL.Repositories
 
         private bool IsSlotAvailable(SlotDetailModel model, DAL.FestivalDbContext dbContext)
         {
-            return dbContext.Slots.Where(
+            return !dbContext.Slots.Where(
                     x => x.StartAt < model.FinishAt && model.StartAt < x.FinishAt &&
                     (x.StageId == model.StageId || x.BandId == model.BandId) &&
                     (x.Id != model.Id)
-                ).Count() == 0;
+                ).Any();
         }
 
         public IEnumerable<SlotListModel> GetAll()
@@ -31,16 +33,24 @@ namespace Festival.BL.Repositories
             using var dbContext = _dbContextFactory.Create();
 
             return dbContext.Slots
-                .Select(e => SlotMapper.MapToListModel(e)).ToArray();
+                .Include(x => x.Band).Include(x => x.Stage).Select(e => SlotMapper.MapToListModel(e)).ToArray();
         }
 
         public SlotDetailModel GetById(Guid id)
         {
             using var dbContext = _dbContextFactory.Create();
 
-            var entity = dbContext.Slots.Single(t => t.Id == id);
+            var entity = dbContext.Slots.SingleOrDefault(t => t.Id == id);
 
             return SlotMapper.MapToDetailModel(entity);
+        }
+
+        public IEnumerable<SlotListModel> GetAllByStageId(Guid id)
+        {
+            using var dbContext = _dbContextFactory.Create();
+
+            return dbContext.Slots
+                .Include(x => x.Band).Include(x => x.Stage).Where(x => x.StageId == id).Select(e => SlotMapper.MapToListModel(e)).ToArray();
         }
 
         public SlotDetailModel InsertOrUpdate(SlotDetailModel model)

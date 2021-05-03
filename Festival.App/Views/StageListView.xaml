@@ -1,0 +1,45 @@
+﻿<local:UserControlBase x:Class="Festival.App.Views.StageListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:Festival.App.Views"
+        xmlns:viewModels="clr-namespace:Festival.App.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+        mc:Ignorable="d"
+        d:DataContext="{Binding Source={StaticResource DesignTimeViewModelLocator}, Path=StageListViewModel}">
+
+    <Grid Width="250">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0"
+                Command="{Binding StageNewCommand}"
+                Content="Add new stage"
+                Width="250"
+                HorizontalAlignment="Center"/>
+
+        <ListBox x:Name="StageListBox" Grid.Row="1" ItemsSource="{Binding Stages}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding StageSelectedCommand}"
+                                            CommandParameter="{Binding ElementName=StageListBox, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left" Content="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</local:UserControlBase>

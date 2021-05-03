@@ -1,12 +1,45 @@
-﻿<Window x:Class="Festival.App.Views.MainWindow"
+﻿<Window 
+        x:Class="Festival.App.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Festival.App"
+        xmlns:views="clr-namespace:Festival.App.Views"
+        xmlns:viewModels="clr-namespace:Festival.App.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
+        Title="Festival" Height="450" Width="800">
+    <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+        <TabItem Header="Program">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <views:SlotListView Grid.Column="0" DataContext="{Binding SlotListViewModel}"/>
+                <views:SlotDetailView Grid.Column="1" DataContext="{Binding SelectedSlotDetailViewModel}"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Bands">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <views:BandListView Grid.Column="0" DataContext="{Binding BandListViewModel}"/>
+                <views:BandDetailView Grid.Column="1" DataContext="{Binding SelectedBandDetailViewModel}"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Stages">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <views:StageListView Grid.Column="0" DataContext="{Binding StageListViewModel}"/>
+                <views:StageDetailView Grid.Column="1" DataContext="{Binding SelectedStageDetailViewModel}"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>

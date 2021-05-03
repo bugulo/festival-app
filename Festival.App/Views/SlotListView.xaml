@@ -1,0 +1,63 @@
+﻿<local:UserControlBase x:Class="Festival.App.Views.SlotListView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:local="clr-namespace:Festival.App.Views" 
+        xmlns:viewModels="clr-namespace:Festival.App.ViewModels" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                      
+        mc:Ignorable="d"
+        d:DataContext="{Binding Source={StaticResource DesignTimeViewModelLocator}, Path=SlotListViewModel}">
+    <Grid Width="250">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Row="0" Content="Pick a stage to see assigned slots:" />
+        <ComboBox Grid.Row="1" MinWidth="150"
+                  
+                      ItemsSource="{Binding Path= StageList.Stages}"
+                      DisplayMemberPath="Name"
+                      SelectedValue="{Binding Stage, UpdateSourceTrigger=PropertyChanged}"
+                      IsSynchronizedWithCurrentItem="True"/>
+
+
+        <Button Grid.Row="2"
+                Command="{Binding SlotNewCommand}"
+                Content="Add new slot"
+                Width="250"
+                HorizontalAlignment="Center"/>
+        <ListBox x:Name="SlotListBox" Grid.Row="3" ItemsSource="{Binding Slots}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding SlotSelectedCommand}"
+                                           CommandParameter="{Binding ElementName=SlotListBox, Path=SelectedItem}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Left" Grid.Row="0" FontSize="10" Width="Auto" Text="{Binding StartAt}" />
+                        <TextBlock Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left" TextAlignment="Left" Grid.Row="1" FontSize="10" Width="Auto" Text="{Binding FinishAt}" />
+
+                        <TextBlock Grid.Column="1" Grid.Row="0" FontSize="13" Padding="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding BandName}" />
+                        <TextBlock Grid.Column="1" Grid.Row="1" FontSize="11" Padding="10 0 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding StageName}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</local:UserControlBase>

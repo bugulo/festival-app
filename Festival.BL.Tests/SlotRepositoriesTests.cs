@@ -8,6 +8,8 @@ using Festival.DAL.Factories;
 using Festival.DAL.Seeds;
 using Xunit;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Festival.BL.Tests
 {
     public class SlotRepositoriesTests : IDisposable
@@ -112,7 +114,7 @@ namespace Festival.BL.Tests
         public void GetAll_Single_Slot()
         {
             using var dbxAssert = _dbContextFactory.Create();
-            SlotEntity dbSlot = dbxAssert.Slots.Single(i => i.Id == TestSeed.SlotEntity1.Id);
+            SlotEntity dbSlot = dbxAssert.Slots.Include(x => x.Band).Include(x => x.Stage).Single(i => i.Id == TestSeed.SlotEntity1.Id);
 
             var slot = _slotRepositorySUT
                 .GetAll()

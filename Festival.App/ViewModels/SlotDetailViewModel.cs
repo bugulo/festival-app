@@ -1,4 +1,5 @@
-﻿using Festival.App.Messages;
+using Festival.App.Commands;
+using Festival.App.Messages;
 using Festival.App.Services;
 using Festival.App.Services.MessageDialog;
 using Festival.App.Wrappers;
@@ -6,8 +7,6 @@ using Festival.BL.Models;
 using Festival.BL.Repositories;
 using System;
 using System.Windows.Input;
-using Festival.App.Commands;
-using System.Globalization;
 
 namespace Festival.App.ViewModels
 {
@@ -17,8 +16,13 @@ namespace Festival.App.ViewModels
         private readonly IMediator _mediator;
         private readonly IMessageDialogService _messageDialogService;
 
+        public BandListViewModel BandList   { get; set; }
+        public StageListViewModel StageList { get; set; }
+
         public SlotDetailViewModel(
             SlotRepository slotRepository,
+            IBandListViewModel bandListViewModel,
+            IStageListViewModel stageListViewModel,
             IMessageDialogService messageDialogService,
             IMediator mediator)
         {
@@ -26,11 +30,22 @@ namespace Festival.App.ViewModels
             _messageDialogService = messageDialogService;
             _mediator = mediator;
 
+            StageList = (StageListViewModel) stageListViewModel;
+            BandList = (BandListViewModel) bandListViewModel;
+
             SaveCommand = new RelayCommand(Save, CanSave);
-            DeleteCommand = new RelayCommand(Delete);
+            DeleteCommand = new RelayCommand(Delete, CanDelete);
         }
 
-        public SlotWrapper? Model { get; set; }
+        private SlotWrapper _model;
+        public SlotWrapper Model { 
+            get => _model; 
+            set {
+                _model = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand SaveCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
@@ -47,14 +62,31 @@ namespace Festival.App.ViewModels
                 throw new InvalidOperationException("Null model cannot be saved");
             }
 
-            Model = _slotRepository.InsertOrUpdate(Model.Model);
-            _mediator.Send(new UpdatedMessage<SlotWrapper> { Model = Model });
+            var result = _slotRepository.InsertOrUpdate(Model.Model);
+            if(result == null)
+            {
+                _messageDialogService.Show(
+                    $"Error",
+                    $"This slot collides with other slot",
+                    MessageDialogButtonConfiguration.OK,
+                    MessageDialogResult.OK);
+            }
+            else
+            {
+                Model = result;
+                _mediator.Send(new UpdatedMessage<SlotWrapper> { Model = Model });
+            }
         }
 
         private bool CanSave() =>
             Model != null
-            && !DateTime.TryParseExact(Model.StartAt.ToString(), "dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime start)
-            && !DateTime.TryParseExact(Model.FinishAt.ToString(), "dd/MM/yyyy hh:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime finish);
+            && Model.StartAt < Model.FinishAt
+            && Model.StageId != Guid.Empty
+            && Model.BandId != Guid.Empty;
+
+        private bool CanDelete() =>
+            Model != null && Model.Id != Guid.Empty;
+
         //test this
         public void Delete()
         {

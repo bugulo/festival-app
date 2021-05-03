@@ -37,6 +37,7 @@ namespace Festival.BL.Mappers
             var entity = (entityFactory ??= new DefaultEntityFactory()).Create<BandEntity>(detailModel.Id);
             entity.Id = detailModel.Id;
             entity.Name = detailModel.Name;
+            entity.Genre = detailModel.Genre;
             entity.Description = detailModel.Description;
             entity.PhotoURL = detailModel.PhotoURL;
             entity.Country = (DAL.Enums.Country)detailModel.Country;

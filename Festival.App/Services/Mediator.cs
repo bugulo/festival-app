@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Festival.App.Messages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Festival.App.Messages;
 
 namespace Festival.App.Services
 {

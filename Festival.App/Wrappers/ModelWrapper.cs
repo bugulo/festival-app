@@ -1,10 +1,12 @@
-﻿using Festival.App.ViewModels;
-using Festival.BL.Models;
-using System;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
+
+using Festival.BL.Models;
+
+using Festival.App.ViewModels;
 
 namespace Festival.App.Wrappers
 {

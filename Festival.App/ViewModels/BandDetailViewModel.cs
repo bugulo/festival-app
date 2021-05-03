@@ -26,10 +26,18 @@ namespace Festival.App.ViewModels
             _mediator = mediator;
 
             SaveCommand = new RelayCommand(Save, CanSave);
-            DeleteCommand = new RelayCommand(Delete);
+            DeleteCommand = new RelayCommand(Delete, CanDelete);
         }
 
-        public BandWrapper Model { get; set; }
+        private BandWrapper _model;
+        public BandWrapper Model { 
+            get => _model; 
+            set {
+                _model = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand SaveCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
 
@@ -53,6 +61,9 @@ namespace Festival.App.ViewModels
             //Festival(.Common?) Enums Country
             && !string.IsNullOrWhiteSpace(Model.Description);
             //Program Description probably not
+
+        private bool CanDelete() =>
+            Model != null && Model.Id != Guid.Empty;
 
         public void Delete()
         {

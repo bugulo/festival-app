@@ -1,5 +1,4 @@
-﻿using System;
-using Festival.BL.Models;
+﻿using Festival.BL.Models;
 
 namespace Festival.App.Messages
 {

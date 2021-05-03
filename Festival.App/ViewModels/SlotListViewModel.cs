@@ -14,11 +14,24 @@ namespace Festival.App.ViewModels
     {
         private readonly SlotRepository _slotRepository; //hopefully alright
         private readonly IMediator _mediator;
+            
+        public StageListViewModel StageList { get; set; }
 
-        public SlotListViewModel(SlotRepository slotRepository, IMediator mediator)
+        private StageListModel _stage;
+        public StageListModel Stage { 
+            get => _stage;
+            set {
+                _stage = value;
+                Load();
+            } 
+        }
+
+        public SlotListViewModel(SlotRepository slotRepository, IStageListViewModel stageListViewModel, IMediator mediator)
         {
             _slotRepository = slotRepository;
             _mediator = mediator;
+
+            StageList = (StageListViewModel) stageListViewModel;
 
             SlotSelectedCommand = new RelayCommand<SlotListModel>(SlotSelected);
             SlotNewCommand = new RelayCommand(SlotNew);
@@ -40,12 +53,15 @@ namespace Festival.App.ViewModels
 
         private void SlotDeleted(DeletedMessage<SlotWrapper> _) => Load();
 
+        private void StageUpdated(UpdatedMessage<StageWrapper> _) => Load();
+
         public void Load()
         {
             Slots.Clear();
-            var slots = _slotRepository.GetAll();
+            var slots = Stage == null ? _slotRepository.GetAll() : _slotRepository.GetAllByStageId(Stage.Id);
             Slots.AddRange(slots);
         }
+
         public override void LoadInDesignMode()
         {
             //Slots.Add(new BandListModel { Name = "Voda", PhotoURL = "https://www.pngitem.com/pimgs/m/40-406527_cartoon-glass-of-water-png-glass-of-water.png" });
