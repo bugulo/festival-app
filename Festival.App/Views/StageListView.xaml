@@ -8,8 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
         mc:Ignorable="d"
         d:DataContext="{Binding Source={StaticResource DesignTimeViewModelLocator}, Path=StageListViewModel}">
-
-    <Grid Width="250">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -18,8 +17,8 @@
         <Button Grid.Row="0"
                 Command="{Binding StageNewCommand}"
                 Content="Add new stage"
-                Width="250"
-                HorizontalAlignment="Center"/>
+                Margin="0 0 0 10"
+                HorizontalAlignment="Stretch"/>
 
         <ListBox x:Name="StageListBox" Grid.Row="1" ItemsSource="{Binding Stages}">
             <i:Interaction.Triggers>

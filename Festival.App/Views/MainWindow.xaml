@@ -7,18 +7,20 @@
         xmlns:local="clr-namespace:Festival.App"
         xmlns:views="clr-namespace:Festival.App.Views"
         xmlns:viewModels="clr-namespace:Festival.App.ViewModels"
+        xmlns:controls="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewModels:MainViewModel}"
-        Title="Festival" Height="450" Width="800">
-    <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+        Title="Festival" Height="600" Width="800" MinHeight="300" MinWidth="530">
+
+    <TabControl Style="{StaticResource MaterialDesignTabControl}" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
         <TabItem Header="Program">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <views:SlotListView Grid.Column="0" DataContext="{Binding SlotListViewModel}"/>
-                <views:SlotDetailView Grid.Column="1" DataContext="{Binding SelectedSlotDetailViewModel}"/>
+                <views:SlotListView Grid.Column="0" Margin="50 50 40 50" DataContext="{Binding SlotListViewModel}"/>
+                <views:SlotDetailView Grid.Column="1" Margin="40 50 50 50" DataContext="{Binding SelectedSlotDetailViewModel}"/>
             </Grid>
         </TabItem>
         <TabItem Header="Bands">
@@ -27,8 +29,8 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <views:BandListView Grid.Column="0" DataContext="{Binding BandListViewModel}"/>
-                <views:BandDetailView Grid.Column="1" DataContext="{Binding SelectedBandDetailViewModel}"/>
+                <views:BandListView Grid.Column="0" Margin="50 50 40 50" DataContext="{Binding BandListViewModel}"/>
+                <views:BandDetailView Grid.Column="1" Margin="40 50 50 50" DataContext="{Binding SelectedBandDetailViewModel}"/>
             </Grid>
         </TabItem>
         <TabItem Header="Stages">
@@ -37,8 +39,8 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <views:StageListView Grid.Column="0" DataContext="{Binding StageListViewModel}"/>
-                <views:StageDetailView Grid.Column="1" DataContext="{Binding SelectedStageDetailViewModel}"/>
+                <views:StageListView Grid.Column="0" Margin="50 50 40 50" DataContext="{Binding StageListViewModel}"/>
+                <views:StageDetailView Grid.Column="1" Margin="40 50 50 50" DataContext="{Binding SelectedStageDetailViewModel}"/>
             </Grid>
         </TabItem>
     </TabControl>

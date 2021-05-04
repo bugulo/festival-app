@@ -8,7 +8,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"                      
         mc:Ignorable="d"
         d:DataContext="{Binding Source={StaticResource DesignTimeViewModelLocator}, Path=SlotListViewModel}">
-    <Grid Width="250">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -16,20 +16,19 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
-        <Label Grid.Row="0" Content="Pick a stage to see assigned slots:" />
-        <ComboBox Grid.Row="1" MinWidth="150"
-                  
-                      ItemsSource="{Binding Path= StageList.Stages}"
-                      DisplayMemberPath="Name"
-                      SelectedValue="{Binding Stage, UpdateSourceTrigger=PropertyChanged}"
-                      IsSynchronizedWithCurrentItem="True"/>
-
+        <Label Grid.Row="0" Content="Pick a stage to see assigned slots:" Margin="0" Padding="0"/>
+        <ComboBox Grid.Row="1"
+                  ItemsSource="{Binding Path= StageList.Stages}"
+                  DisplayMemberPath="Name"
+                  SelectedValue="{Binding Stage, UpdateSourceTrigger=PropertyChanged}"
+                  IsSynchronizedWithCurrentItem="True"/>
 
         <Button Grid.Row="2"
                 Command="{Binding SlotNewCommand}"
                 Content="Add new slot"
-                Width="250"
-                HorizontalAlignment="Center"/>
+                Margin="0 10 0 10"
+                HorizontalAlignment="Stretch"/>
+        
         <ListBox x:Name="SlotListBox" Grid.Row="3" ItemsSource="{Binding Slots}">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
